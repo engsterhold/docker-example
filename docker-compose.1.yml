@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  caddy:
+    image: caddy:latest
+    #build: .
+    restart: unless-stopped
+    ports:
+      - "18081:80"
+      - "12443:443"
+    volumes:
+      - $PWD/Caddyfile.1:/etc/caddy/Caddyfile
+      - $PWD/share:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+
+  caddy2:
+    image: caddy:latest
+    #build: .
+    restart: unless-stopped
+    ports:
+      - "18080:80"
+      - "11443:443"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/site:/srv
+      - caddy_data2:/data
+      - caddy_config2:/config
+
+
+volumes:
+  caddy_data:
+    external: true
+  caddy_config:
+
+  caddy_data2:
+    external: true
+  caddy_config2:
